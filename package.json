@@ -1,0 +1,30 @@
+{
+  "name": "backendcrud",
+  "version": "1.0.0",
+  "description": "This is invidiual coding assignment for Mr. Ho Tuan Thanh Groups, 20CLC04",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NguyenLeHoangThong/Intro2SE-ICA-BackEnd.git"
+  },
+  "author": "Thong Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NguyenLeHoangThong/Intro2SE-ICA-BackEnd/issues"
+  },
+  "homepage": "https://github.com/NguyenLeHoangThong/Intro2SE-ICA-BackEnd#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "http": "0.0.1-security",
+    "knex": "^2.3.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0"
+  }
+}
