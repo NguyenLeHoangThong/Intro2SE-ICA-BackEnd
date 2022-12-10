@@ -29,8 +29,8 @@ const bootDatabase = async () => {
             searchPath: ['knex', 'public'],
         });
 
-        app.post('/create', async (req, res) => {
-            console.log("request: ", req)
+        app.post('/employees', async (req, res) => {
+            // create 1 employee
             const name = req.body.name;
             const age = req.body.age;
             const country = req.body.country;
@@ -46,7 +46,6 @@ const bootDatabase = async () => {
             }
 
             return await knex.transaction(async (trx) => {
-                console.log("data: ", data)
                 try {
                     const results = await trx('employees')
                         .returning([
@@ -59,20 +58,40 @@ const bootDatabase = async () => {
                         ])
                         .insert(data)
 
-                    console.log("Results: ", results)
-                    return await res.send(results && results.length ? results[0] : null);
+                    return res.send(results && results.length ? results[0] : null);
                 }
                 catch (e) {
-                    console.log("/create error: ", e);
-                    return await res.send({
-                        status: 500,
+                    return res.send({
                         message: e?.message || e
                     })
                 }
             })
         })
 
+        app.get('/employees', async (req, res) => {
+            //get all employees
+            try {
+                const getReturnObject = (data) => {
+                    return ({
+                        id: data?.id,
+                        name: data?.name,
+                        age: data?.age,
+                        position: data?.position,
+                        country: data?.country,
+                        wage: data?.wage
+                    })
+                }
 
+                const results = await knex.raw('SELECT * FROM employees');
+
+                return res.send(results && results.rows && results.rows.length ? results.rows.map((item) => getReturnObject(item)) : []);
+            }
+            catch (e) {
+                return res.send({
+                    message: e?.message || e
+                })
+            }
+        })
     }
     catch (err) {
         console.log("Boot database error: ", err);
